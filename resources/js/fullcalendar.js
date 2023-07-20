@@ -2,9 +2,7 @@ import { Calendar } from 'fullcalendar'
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import $ from "jquery";
-
-console.log('calendar import');
-
+    
 $(function () {
     const calendarEl = document.getElementById('calendar');
     const calendar = new Calendar(calendarEl, {
@@ -15,6 +13,11 @@ $(function () {
         end: 'today',
       },
       events: booking,
+      selectable: true,
+      select: function(start, end, allDays){
+        console.log('selected ' );
+        $('#bookingModal').modal('toggle');
+      }
     });
   
     calendar.render();

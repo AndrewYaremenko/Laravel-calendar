@@ -14,9 +14,9 @@ class CalendarController extends Controller
 
         foreach ($bookings as $booking) {
             $events[] = [
-                'title' => $bookings->title,
-                'start' => $bookings->start_date,
-                'end' => $bookings->end_date,
+                'title' => $booking->title,
+                'start' => $booking->start_date,
+                'end' => $booking->end_date,
             ];
         }
         return view('calendar.index', ['events' => $events]);
