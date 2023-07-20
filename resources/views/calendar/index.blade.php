@@ -25,5 +25,8 @@
     </div>
 
 <script src={{ asset('js/app.js') }}></script>
+<script>
+    let booking = @json($events);
+</script>
 </body>
 </html>

@@ -13,7 +13,8 @@ $(function () {
         start: 'prev next',
         center: 'title',
         end: 'today',
-      }
+      },
+      events: booking,
     });
   
     calendar.render();
