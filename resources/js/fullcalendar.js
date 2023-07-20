@@ -9,6 +9,11 @@ $(function () {
     const calendarEl = document.getElementById('calendar');
     const calendar = new Calendar(calendarEl, {
       plugins: [dayGridPlugin, interactionPlugin],
+      headerToolbar: {
+        start: 'prev next',
+        center: 'title',
+        end: 'today',
+      }
     });
   
     calendar.render();
