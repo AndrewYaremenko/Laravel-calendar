@@ -27,6 +27,13 @@ class CalendarController extends Controller
         $request->validate([
             'title' => ['required', 'string'],
         ]);
-        return $request->all();
+
+        $booking = Booking::create([
+            'title' => $request->title,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+        ]);
+
+        return response()->json($booking);
     }
 }
