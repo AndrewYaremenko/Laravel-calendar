@@ -21,4 +21,12 @@ class CalendarController extends Controller
         }
         return view('calendar.index', ['events' => $events]);
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => ['required', 'string'],
+        ]);
+        return $request->all();
+    }
 }

@@ -12,13 +12,14 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="">
-            <input type="text" class="form-control" name="title" id="#title">
+          <form>
+            <input type="text" class="form-control" name="title" id="titleInput" required>
+            <span class="text-danger error" id="title-error"></span>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary" id="saveBookingBtn">Save changes</button>
         </div>
       </div>
     </div>
