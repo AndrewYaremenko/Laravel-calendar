@@ -14,6 +14,7 @@ class CalendarController extends Controller
 
         foreach ($bookings as $booking) {
             $events[] = [
+                'id' => $booking->id,
                 'title' => $booking->title,
                 'start' => $booking->start_date,
                 'end' => $booking->end_date,
@@ -34,6 +35,15 @@ class CalendarController extends Controller
             'end_date' => $request->end_date,
         ]);
 
+        return response()->json($booking);
+    }
+
+    public function update(Booking $booking, Request $request)
+    {
+        $booking->update([
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+        ]);
         return response()->json($booking);
     }
 }

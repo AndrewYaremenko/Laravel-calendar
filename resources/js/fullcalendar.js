@@ -3,6 +3,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import $ from "jquery";
 import moment from "moment"
+import Swal from 'sweetalert2'
 
 $.ajaxSetup({
 	headers: {
@@ -29,6 +30,27 @@ $(function () {
 			$('#title-error').text('');
 			$('#bookingModal').modal('toggle');
 		},
+		editable: true,
+		eventDrop: function (event) {
+			let id = event.event.id;
+			let start_date = moment(event.event.start).format('YYYY-MM-DD');
+			let end_date = moment(event.event.end).format('YYYY-MM-DD');
+
+			console.log($('meta[name="calendar-update-route"]').attr('content'));
+
+			$.ajax({
+				url: $('meta[name="calendar-update-route"]').attr('content') + '/' + id,
+				type: 'PATCH',
+				dataType: 'json',
+				data: { start_date, end_date },
+				success: function (response) {
+					Swal.fire('Successful!');
+				},
+				error: function (response) {
+					console.log(response);
+				}
+			})
+		}
 	});
 
 	$(document).on('click', '#saveBookingBtn', function (e) {
