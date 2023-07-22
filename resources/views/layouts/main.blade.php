@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="calendar-store-route" content="{{ route('calendar.store') }}">
     <meta name="calendar-update-route" content="{{ route('calendar.update', '') }}">
+    <meta name="calendar-destroy-route" content="{{ route('calendar.destroy', '') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <title>Calendar</title>

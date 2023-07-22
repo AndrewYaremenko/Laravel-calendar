@@ -14,6 +14,8 @@ $.ajaxSetup({
 $(function () {
 	let start_date;
 	let end_date;
+	let selectedEvent;
+
 	const calendarEl = document.getElementById('calendar');
 	const calendar = new Calendar(calendarEl, {
 		plugins: [dayGridPlugin, interactionPlugin],
@@ -28,7 +30,7 @@ $(function () {
 			start_date = moment(start).format('YYYY-MM-DD');
 			end_date = moment(end).format('YYYY-MM-DD');
 			$('#title-error').text('');
-			$('#bookingModal').modal('toggle');
+			$('#bookingModalSave').modal('toggle');
 		},
 		editable: true,
 		eventDrop: function (event) {
@@ -50,6 +52,12 @@ $(function () {
 					console.log(response);
 				}
 			})
+		},
+		eventClick: function(event) {
+			console.log(event.event.id);
+			$('#deleteBookingBtn').data('id', event.event.id);
+			$('#bookingModalDelete').modal('toggle');
+			selectedEvent = event;
 		}
 	});
 
@@ -64,12 +72,13 @@ $(function () {
 			data: { title, start_date, end_date },
 			success: function (response) {
 				const newEvent = {
+					id: response.id,
 					title,
 					start: start_date,
 					end: end_date,
 				};
 				calendar.addEvent(newEvent);
-				$('#bookingModal').modal('hide');
+				$('#bookingModalSave').modal('hide');
 				$('#titleInput').val('');
 			},
 			error: function (response) {
@@ -82,7 +91,24 @@ $(function () {
 		});
 	});
 
+	$(document).on('click', '#deleteBookingBtn', function (e) {
+
+		$.ajax({
+			url: $('meta[name="calendar-destroy-route"]').attr('content') + '/' + $('#deleteBookingBtn').data('id'),
+			type: 'DELETE',
+			dataType: 'json',
+			success: function (response) {
+				console.log(response);
+				$('#bookingModalDelete').modal('hide');
+				selectedEvent.event.remove();
+				Swal.fire('Event removed!');
+			},
+			error: function (response) {
+				console.log(response);
+			},
+		});
+	});
+
 	calendar.render();
 });
-
 

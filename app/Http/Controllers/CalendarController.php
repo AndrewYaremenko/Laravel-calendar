@@ -46,4 +46,11 @@ class CalendarController extends Controller
         ]);
         return response()->json($booking);
     }
+
+    public function destroy(Booking $booking)
+    {
+        $booking->delete();
+
+        return response()->json(['status' => 202]);
+    }
 }

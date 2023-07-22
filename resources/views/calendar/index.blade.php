@@ -1,6 +1,7 @@
 @extends('layouts.main')
 @section('content')
-    @include('partials.modal')
+    @include('partials.modalSave')
+    @include('partials.modalDelete')
 
     <div class="container">
         <div class="row">
