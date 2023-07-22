@@ -24,6 +24,8 @@ $(function () {
 			center: 'title',
 			end: 'today',
 		},
+		eventDisplay: 'block',
+		displayEventTime: false,
 		events: booking,
 		selectable: true,
 		select: function ({ start, end }) {
@@ -38,8 +40,6 @@ $(function () {
 			let start_date = moment(event.event.start).format('YYYY-MM-DD');
 			let end_date = moment(event.event.end).format('YYYY-MM-DD');
 
-			console.log($('meta[name="calendar-update-route"]').attr('content'));
-
 			$.ajax({
 				url: $('meta[name="calendar-update-route"]').attr('content') + '/' + id,
 				type: 'PATCH',
@@ -53,8 +53,7 @@ $(function () {
 				}
 			})
 		},
-		eventClick: function(event) {
-			console.log(event.event.id);
+		eventClick: function (event) {
 			$('#deleteBookingBtn').data('id', event.event.id);
 			$('#bookingModalDelete').modal('toggle');
 			selectedEvent = event;
@@ -98,7 +97,6 @@ $(function () {
 			type: 'DELETE',
 			dataType: 'json',
 			success: function (response) {
-				console.log(response);
 				$('#bookingModalDelete').modal('hide');
 				selectedEvent.event.remove();
 				Swal.fire('Event removed!');
@@ -111,4 +109,3 @@ $(function () {
 
 	calendar.render();
 });
-
